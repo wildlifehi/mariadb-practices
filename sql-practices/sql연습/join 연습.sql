@@ -63,7 +63,7 @@ select a.emp_no, a.first_name, b.dept_name
 	order by b.salary desc;
     
 -- 실습문제 3 : 현재 직책별로 평균 연봉과 인원수를 구하되 직책별로 인원이 100명 이상인 직책만 출력하시오.
-  select a.title, avg(b.salary), count(*)
+  select avg(b.salary), count(*)
 	from titles a, salaries b 
    where a.emp_no = b.emp_no
 	 and a.to_date = '9999-01-01'
@@ -71,18 +71,3 @@ select a.emp_no, a.first_name, b.dept_name
 group by a.title
   having count(*) >= 100 -- 분명히 말하지만 여기서는 새로 카운트하는게 아닌 컬럼을 지칭하는것이다.
 order by avg(b.salary) desc;
-
--- 실습문제4: 현재 부서별로 현재 직책이 Engineer인 직원들에 대해서만 평균 급여를 구하세요.
-   
-  select d.dept_name, avg(salary)
-    from dept_emp a, salaries b, titles c, departments d
-   where a.emp_no = b.emp_no
-     and b.emp_no = c.emp_no 
-     and d.dept_no = a.dept_no
-     and a.to_date = '9999-01-01'
-     and b.to_date = '9999-01-01' 
-     and c.to_date = '9999-01-01'
-     and c.title = 'Engineer'
-group by a.emp_no;
-
-
